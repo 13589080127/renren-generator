@@ -31,14 +31,12 @@ public class GenUtils {
 	public static List<String> getTemplates(){
 		List<String> templates = new ArrayList<String>();
 		templates.add("template/Entity.java.vm");
+		templates.add("template/EntityModel.java.vm");
+		templates.add("template/DaoReal.java.vm");
 		templates.add("template/Dao.java.vm");
 		templates.add("template/Dao.xml.vm");
 		templates.add("template/Service.java.vm");
 		templates.add("template/ServiceImpl.java.vm");
-		templates.add("template/Controller.java.vm");
-		templates.add("template/list.html.vm");
-		templates.add("template/list.js.vm");
-		templates.add("template/menu.sql.vm");
 		return templates;
 	}
 	
@@ -170,13 +168,17 @@ public class GenUtils {
 		}
 		
 		if(template.contains("Entity.java.vm")){
-			return packagePath + "entity" + File.separator + className + "Entity.java";
+			return packagePath + "entity" + File.separator + className + ".java";
 		}
-		
+		if(template.contains("EntityModel.java.vm")){
+			return packagePath + "entity" + File.separator +className+"Model.java";
+		}
 		if(template.contains("Dao.java.vm")){
+			return packagePath + "mapper" + File.separator + className + "Mapper.java";
+		}
+		if(template.contains("DaoReal.java.vm")){
 			return packagePath + "dao" + File.separator + className + "Dao.java";
 		}
-
 		if(template.contains("Service.java.vm")){
 			return packagePath + "service" + File.separator + className + "Service.java";
 		}
@@ -190,7 +192,8 @@ public class GenUtils {
 		}
 
 		if(template.contains("Dao.xml.vm")){
-			return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator + "generator" + File.separator + className + "Dao.xml";
+			String tempClassName = className.substring(0,1).toLowerCase()+className.substring(1);
+			return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator + tempClassName + "Mapper.xml";
 		}
 
 		if(template.contains("list.html.vm")){

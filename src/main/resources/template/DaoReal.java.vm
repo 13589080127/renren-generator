@@ -1,0 +1,48 @@
+package ${package}.dao;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import onight.tfw.ojpa.api.annotations.Tab;
+import onight.tfw.ojpa.ordb.ExtendDaoSupper;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.csc.wlt.entity.CscKey;
+import ${package}.mapper.${className}Mapper;
+import ${package}.entity.${className};
+import ${package}.entity.${className}Model;
+import java.util.List;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Tab(name = "${tableName}")
+public class ${className}Dao extends ExtendDaoSupper<${className}, ${className}Model, CscKey> {
+
+    private ${className}Mapper mapper;
+
+    private SqlSessionFactory sqlSessionFactory;
+    @Override
+    public ${className} selectOneByExample(${className}Model example) {
+        List<${className}> ${classname}List = mapper.queryList(example);
+        if(CollectionUtils.isEmpty(${classname}List)){
+            return null;
+        }
+        return ${classname}List.get(0);
+    }
+    @Override
+    public int countByExample(${className}Model example) {
+        return mapper.queryTotal(example);
+    }
+
+    @Override
+    public List<${className}> selectByExample(${className}Model example){
+        return mapper.queryList(example);
+    }
+    @Override
+    public int insert(${className} record){
+        return mapper.save(record);
+    }
+
+    public int updateByPrimaryKeySelective(${className} record){
+        return mapper.update(record);
+    }
+}

@@ -10,17 +10,19 @@ import java.math.BigDecimal;
 
 /**
  * ${comments}
- * 
+ *
  * @author ${author}
  * @email ${email}
  * @date ${datetime}
  */
 @Data
-public class ${className} implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
-#foreach ($column in $columns)
-	//$column.comments
-	private $column.attrType $column.attrname;
-#end
+public class ${className}Model extends ${className} {
+    /**
+    * 偏移量
+    */
+    private int offset;
+    /**
+    * 分页数
+    */
+    private int limit;
 }
